@@ -1,0 +1,38 @@
+﻿server:
+  port: 8280
+
+spring:
+  application:
+    name: ZUUL-PROXY
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka01.com:8260/eureka
+
+zuul:
+# 设置微服务ID的另外的访问路径，避免使用微服务ID
+  routes:
+    user-service: /user/**
+    product-service:
+      path: /pro/**
+      serviceId: product-service-test
+#    product-service-test: /pro/**
+#    另一种匹配方式
+#    product-service: # 这里这个只是个逻辑名称，可以随意修改
+#      path: /pro/**
+##      注意这里的serviceId不是修改的意思，而是需要绑定的微服务Id
+#      serviceId: product-service
+
+
+#    需要忽略的微服务Id，忽略之后就不能通过这个Id访问，只能通过微服务Id设置的匹配路径
+#  ignored-services: user-service,product-service
+
+
+# 过滤Http敏感的header，单个微服务过滤
+# route是需要过滤微服务Id
+# zuul.routes.[route].customSensitiveHeaders=true
+# zuul.routes.[route].sensitiveHeaders=这里写需要过滤的头部
+
+# 全局过滤
+# zuul.sensitiveHeader=这里写需要过滤的头部

@@ -1,0 +1,18 @@
+# 这是系统级别的配置，application是用户级别的配置，所以下面的配置需要放到
+# bootstrap中来，因为spring中有默认的连接路径：http://localhost:8888/application/default
+# 所以需要替换掉
+
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8989 # 这是配置服务器的路径
+      name: a # 这是需要访问的文件的名字，不用后缀
+      label: master # 这是需要访问的那个分支
+      profile: default # 这是需要访问的a文件下面的哪一个，解释看下面
+# 因为springconfig cloud的访问路径有如下几种：
+# /{application}/{profile}[/{label}]       # application是名字，profile启用的文件，label是git的分支
+# /{application}-{profile}.yml
+# /{label}/{application}-{profile}.yml
+# /{application}-{profile}.properties
+# /{label}/{application}-{profile}.properties
+# 由上面可知，直接用名字，比如.../a.yml是无法获取a中的数据，需要在a后面加上[-{任意字符}]

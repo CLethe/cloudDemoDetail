@@ -1,0 +1,11 @@
+server:
+  port: 8100
+
+spring:
+  application:
+    name: PRODUCT-SERVICE-TEST
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka01.com:8260/eureka
